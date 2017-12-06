@@ -1,0 +1,30 @@
+{
+  "name": "shopify-development-app",
+  "version": "0.0.1",
+  "description": "Shopify Boilerplate App based on MERN Stack to fully integrate into the Shopify App store. Going through OAuth, Billing API, Embedded App SDK providing an interface based on Polaris.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Shopify",
+    "Node",
+    "Express",
+    "React",
+    "Polaris",
+    "Passport",
+    "App",
+    "Liquix",
+    "Boilerplate"
+  ],
+  "author": "Felix Tellmann",
+  "license": "ISC",
+  "dependencies": {
+    "cookie": "^0.3.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "nonce": "^1.0.4",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
+  }
+}
