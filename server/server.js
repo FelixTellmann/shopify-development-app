@@ -22,6 +22,7 @@ app.use(cookieSession({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(passport.initialize());
+app.use(passport.session());
 
 
 router.get('/cities', (req, res) => {
