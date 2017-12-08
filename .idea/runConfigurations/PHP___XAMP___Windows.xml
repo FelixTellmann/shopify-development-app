@@ -1,5 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="PHP - XAMP - Windows" type="PhpBuiltInWebServerConfigurationType" factoryName="PHP Built-in Web Server" document_root="$PROJECT_DIR$" port="8080">
-    <method />
-  </configuration>
-</component>
