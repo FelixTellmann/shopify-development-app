@@ -12,7 +12,8 @@
     "Passport",
     "App",
     "Liquix",
-    "Boilerplate"
+    "Boilerplate",
+    "Development"
   ],
   "scripts": {
     "install": "(cd client && yarn) && (cd server && yarn)",
