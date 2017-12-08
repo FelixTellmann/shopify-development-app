@@ -34,7 +34,7 @@ router.get('/cities', (req, res) => {
     res.json(cities);
 });
 
-app.use('/auth', authRoutes);
+app.use(authRoutes);
 app.use(router);
 
 // any routes not picked up by the server api will be handled by the react router

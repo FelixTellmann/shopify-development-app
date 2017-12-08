@@ -27,7 +27,7 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-router.get('/', (req, res, next) => {
+router.get('/auth', (req, res, next) => {
     if (typeof req.query.shop !== 'string') {
         return res.status(400).send('https://f019136a.ngrok.io/auth?shop=liquix-app-development.myshopify.com');
     }
@@ -65,7 +65,7 @@ router.get('/', (req, res, next) => {
     })(req, res, next);
 });
 
-router.get('/shop', (req, res, next) => {
+router.get('/auth/shop', (req, res, next) => {
     const {shop, hmac, code, state} = req.query;
     const stateCookie = cookie.parse(req.headers.cookie).state;
 
