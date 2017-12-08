@@ -1,32 +1,32 @@
-import bodyParser from 'body-parser'
-import express from 'express'
-import path from 'path'
-const app = express()
+import bodyParser from 'body-parser';
+import express from 'express';
+import path from 'path';
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}))
+const app = express();
 
-const router = express.Router()
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
-const staticFiles = express.static(path.join(__dirname, '../../client/build'))
-app.use(staticFiles)
+const router = express.Router();
+
+const staticFiles = express.static(path.join(__dirname, '../../client/build'));
+app.use(staticFiles);
 
 router.get('/cities', (req, res) => {
-  console.log(`reading this from env > ${process.env.MY_VARIABLE}`)
-  const cities = [
-    {name: 'New York City', population: 8175133},
-    {name: 'Los Angeles',   population: 3792621},
-    {name: 'Chicago',       population: 2695598}
-  ]
-  res.json(cities)
-})
+    const cities = [
+        {name: 'New York City', population: 8175133},
+        {name: 'Los Angeles', population: 3792621},
+        {name: 'Cape Town', population: 2695598}
+    ];
+    res.json(cities);
+});
 
-app.use(router)
+app.use(router);
 
 // any routes not picked up by the server api will be handled by the react router
-app.use('/*', staticFiles)
+app.use('/*', staticFiles);
 
-app.set('port', (process.env.PORT || 3001))
+app.set('port', (process.env.PORT || 3001));
 app.listen(app.get('port'), () => {
-  console.log(`Listening on ${app.get('port')}`)
-})
+    console.log(`Listening on ${app.get('port')}`);
+});
