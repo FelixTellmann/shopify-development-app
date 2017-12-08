@@ -1,30 +1,22 @@
 {
-  "name": "shopify-development-app",
-  "version": "0.0.1",
-  "description": "Shopify Boilerplate App based on MERN Stack to fully integrate into the Shopify App store. Going through OAuth, Billing API, Embedded App SDK providing an interface based on Polaris.",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "name": "crae-simple",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {},
+  "license": "MIT",
+  "engines": {
+    "node": "6.9.1"
   },
-  "keywords": [
-    "Shopify",
-    "Node",
-    "Express",
-    "React",
-    "Polaris",
-    "Passport",
-    "App",
-    "Liquix",
-    "Boilerplate"
-  ],
-  "author": "Felix Tellmann",
-  "license": "ISC",
   "dependencies": {
-    "cookie": "^0.3.1",
-    "dotenv": "^4.0.0",
-    "express": "^4.16.2",
-    "nonce": "^1.0.4",
-    "request": "^2.83.0",
-    "request-promise": "^4.2.2"
+    "concurrently": "^3.1.0",
+    "rimraf": "^2.5.4"
+  },
+  "scripts": {
+    "build": "concurrently \"cd client && yarn build\" \"cd server && yarn build\"",
+    "clean": "concurrently \"rimraf node_modules\" \"cd client && rimraf node_modules build\" \"cd server && rimraf node_modules build\"",
+    "heroku-postbuild": "yarn build",
+    "install": "(cd client && yarn) && (cd server && yarn)",
+    "start": "concurrently \"cd client && PORT=3000 yarn start\" \"cd server && PORT=3001 yarn start\"",
+    "start:prod": "cd server && yarn start:prod"
   }
 }

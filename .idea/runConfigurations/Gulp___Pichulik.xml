@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Gulp - Pichulik" type="js.build_tools.gulp" factoryName="Gulp.js">
+    <node-interpreter>project</node-interpreter>
+    <node-options />
+    <gulpfile>$PROJECT_DIR$/gulpfile.js</gulpfile>
+    <tasks>
+      <task>default</task>
+    </tasks>
+    <arguments />
+    <envs />
+    <method />
+  </configuration>
+</component>

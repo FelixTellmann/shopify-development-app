@@ -1,0 +1,23 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Slate" type="js.build_tools.npm" factoryName="npm">
+    <package-json value="$PROJECT_DIR$/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="slate" />
+    </scripts>
+    <node-interpreter value="project" />
+    <envs />
+    <method>
+      <option name="GulpBeforeRunTask" enabled="true">
+        <node-interpreter>project</node-interpreter>
+        <node-options />
+        <gulpfile>$PROJECT_DIR$/gulpfile.js</gulpfile>
+        <tasks>
+          <task>autoprefix:css</task>
+        </tasks>
+        <arguments />
+        <envs />
+      </option>
+    </method>
+  </configuration>
+</component>
