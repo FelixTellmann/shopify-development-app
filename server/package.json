@@ -9,6 +9,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
     "express": "^4.16.2"
   },
   "devDependencies": {
@@ -16,8 +17,8 @@
     "nodemon": "^1.12.5"
   },
   "scripts": {
-    "start": "nodemon -r babel-register server.js",
     "build": "babel . --ignore node_modules,build --out-dir build",
-    "start:prod": "node build/server.js"
+    "start": "nodemon -r dotenv/config -r babel-register server.js",
+    "start:prod": "node -r dotenv/config -r build/server.js"
   }
 }

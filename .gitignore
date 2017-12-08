@@ -2,6 +2,7 @@
 
 # development environment
 .idea
+/old
 
 # dependencies
 node_modules
