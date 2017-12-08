@@ -29,7 +29,7 @@ passport.deserializeUser((id, done) => {
 
 router.get('/auth', (req, res, next) => {
     if (typeof req.query.shop !== 'string') {
-        return res.status(400).send('https://f019136a.ngrok.io/auth?shop=liquix-app-development.myshopify.com');
+        return res.status(400).send(appURI + '/auth?shop=liquix-app-development.myshopify.com');
     }
     const state = nonce();
     res.cookie('state', state);

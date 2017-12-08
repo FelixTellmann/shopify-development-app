@@ -24,7 +24,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 router.get('/cities', (req, res) => {
     const cities = [
         {name: 'New York City', population: 8175133},
