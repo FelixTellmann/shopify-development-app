@@ -34,6 +34,7 @@ router.get('/auth', (req, res, next) => {
     const state = nonce();
     res.cookie('state', state);
 
+    res.send('this is a test');
     passport.use(`shopify-${state}`, new ShopifyStrategy({
         clientID: apiKey,
         clientSecret: apiSecret,
