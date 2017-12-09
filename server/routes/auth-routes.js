@@ -76,7 +76,8 @@ router.get('/auth/shop', (req, res, next) => {
 }, (req, res) => {
     const stateCookie = cookie.parse(req.headers.cookie).state;
     passport.unuse(`shopify-${stateCookie}`);
-    return res.send({message: 'successfully logged in', user: req.user});
+    return res.redirect('/app');
+    /*return res.send({message: 'successfully logged in', user: req.user});*/
 });
 
 export default router;

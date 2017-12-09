@@ -22,7 +22,8 @@
     "heroku-postbuild": "yarn build",
     "start": "concurrently \"cd client && PORT=3000 yarn start\" \"cd server && PORT=3001 yarn start\"",
     "start:win": "concurrently \"cd client && yarn start\" \"cd server && yarn start\"",
-    "start:prod": "cd server && yarn start:prod"
+    "start:prod": "cd server && yarn start:prod",
+    "start:local": "cd server && yarn start:local"
   },
   "author": "Felix Tellmann",
   "license": "MIT",

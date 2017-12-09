@@ -1,26 +1,23 @@
 import React, {Component} from 'react';
-import './App.css';
+import '@shopify/polaris/styles.css';
+import {Page, Card} from '@shopify/polaris';
+import {EmbeddedApp} from '@shopify/polaris/embedded';
+
 
 class App extends Component {
-    state = {cities: []};
-
-    async componentDidMount() {
-        const response = await fetch('/cities');
-        const cities = await response.json();
-        this.setState({cities: cities});
-    }
-
     render() {
         return (
-            <div>
-                <ul>
-                    {this.state.cities.map(city => {
-                        return <li key={city.name}><b>{city.name}</b>: {city.population}</li>;
-                    })}
-                </ul>
-            </div>
+            <EmbeddedApp
+                apiKey="01b7bee3a29d4115f19882c30275c96e"
+                shopOrigin="https://liquix-app-development.myshopify.com"
+            >
+                <Page title="Example application">
+                    <Card sectioned>
+                        Insert the rest of your app here, including those components detailed below, which can now communicate with the Embedded App SDK.
+                    </Card>
+                </Page>
+            </EmbeddedApp>
         );
     }
 }
-
 export default App;
