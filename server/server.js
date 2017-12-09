@@ -42,7 +42,6 @@ app.use('*', (req, res, next) => {
     if (!req.user) {
         res.redirect('/cities');
     } else {
-        console.log('test');
         next();
     }
 });
