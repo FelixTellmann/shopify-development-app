@@ -11,7 +11,8 @@ class App extends Component {
                 apiKey="01b7bee3a29d4115f19882c30275c96e"
                 shopOrigin="https://liquix-app-development.myshopify.com"
             >
-                <Page title="Example application">
+
+                <Page title="Example application 2">
                     <Card sectioned>
                         Insert the rest of your app here, including those components detailed below, which can now communicate with the Embedded App SDK.
                     </Card>

@@ -40,19 +40,19 @@ router.get('/auth', (req, res, next) => {
         callbackURL: redirectUri,
         shop: req.query.shop
     }, (accessToken, refreshToken, profile, done) => {
-        Shop.findOne({shopId: profile.id}).then((currentShop) => {
-            if (currentShop) {
-                console.log(currentShop);
-                return done(null, currentShop);
+        Shop.findOne({shopId: profile.id}).then((currentUser) => {
+            if (currentUser) {
+                console.log(currentUser);
+                return done(null, currentUser);
             } else {
                 new Shop({
                     shopId: profile.id,
                     shop_URI: profile.profileURL,
                     email: profile.emails[0].value,
                     accessToken: accessToken,
-                }).save().then((newShop) => {
-                    console.log(newShop);
-                    return done(null, newShop);
+                }).save().then((newUser) => {
+                    console.log(newUser);
+                    return done(null, newUser);
                 });
             }
         });
@@ -76,7 +76,7 @@ router.get('/auth/shop', (req, res, next) => {
 }, (req, res) => {
     const stateCookie = cookie.parse(req.headers.cookie).state;
     passport.unuse(`shopify-${stateCookie}`);
-    return res.redirect('/app');
+    return res.redirect('https://' + req.user.shop_URI + '/admin/apps/' + process.env.SHOPIFY_API_KEY);
     /*return res.send({message: 'successfully logged in', user: req.user});*/
 });
 

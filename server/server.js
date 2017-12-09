@@ -8,14 +8,13 @@ import cookieSession from 'cookie-session';
 
 const app = express();
 const router = express.Router();
-const publicFiles = express.static(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI || '../../client/build'));
-const staticFiles = express.static(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI + '/static' || '../../client/build/static'));
+const staticFiles = express.static(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI || '../../client/build', '/static'));
 
 /*================ Connect to MongoDB ================*/
 mongoose.connect(process.env.PROD_DB);
 
 /*================ Config ================*/
-/*app.use(publicFiles);*/
+app.use('/static', staticFiles);
 app.use(cookieSession({
     maxAge: 7 * 24 * 60 * 60 * 1000,
     keys: [process.env.COOKIE_KEY]
@@ -38,10 +37,8 @@ router.get('/cities', (req, res) => {
 app.use(router);
 
 
-// any routes not picked up by the server api will be handled by the react router
-app.use('/*', (req, res, next) => {
-    console.log(req.user || 'no existing user');
-    console.log('test');
+// check for authentication before allowing access to react source files.
+app.use('*', (req, res, next) => {
     if (!req.user) {
         res.redirect('/cities');
     } else {
@@ -49,8 +46,11 @@ app.use('/*', (req, res, next) => {
         next();
     }
 });
-app.use(/\/(?!.*static).*/, publicFiles);
-app.use('/static', staticFiles);
+
+// any routes not picked up by the server api will be handled by the react router
+app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI || '../../client/build', 'index.html'));
+});
 
 
 app.set('port', (process.env.PORT || 3001));
