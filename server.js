@@ -8,13 +8,12 @@ import cookieSession from 'cookie-session';
 
 const app = express();
 const router = express.Router();
-const staticFiles = express.static(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI || '../../client/build', '/static'));
 
 /*================ Connect to MongoDB ================*/
 mongoose.connect(process.env.PROD_DB);
 
 /*================ Config ================*/
-app.use('/static', staticFiles);
+app.use('/static', express.static(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI || '/', '/static')));
 app.use(cookieSession({
     maxAge: 7 * 24 * 60 * 60 * 1000,
     keys: [process.env.COOKIE_KEY]
@@ -39,7 +38,10 @@ app.use(router);
 
 // check for authentication before allowing access to react source files.
 app.use('*', (req, res, next) => {
-    if (!req.user) {
+    const {hmac, shop} = req.query;
+    if (!req.user && hmac && shop) {
+        res.redirect(`/auth?shop=${shop}`);
+    } else if (!req.user) {
         res.redirect('/cities');
     } else {
         next();
@@ -48,7 +50,7 @@ app.use('*', (req, res, next) => {
 
 // any routes not picked up by the server api will be handled by the react router
 app.get('*', function (req, res) {
-    res.sendFile(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI || '../../client/build', 'index.html'));
+    res.sendFile(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI || '/', 'index.html'));
 });
 
 
