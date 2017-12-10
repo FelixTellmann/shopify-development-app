@@ -13,10 +13,6 @@ coverage
 
 # production
 build
-routes
-src
-public
-models
 
 
 # misc
