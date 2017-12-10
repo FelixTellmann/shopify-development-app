@@ -13,7 +13,7 @@ const router = express.Router();
 mongoose.connect(process.env.PROD_DB);
 
 /*================ Config ================*/
-app.use('/static', express.static(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI || '/', '/static')));
+app.use('/static', express.static(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI || '../build', '/static')));
 app.use(cookieSession({
     maxAge: 7 * 24 * 60 * 60 * 1000,
     keys: [process.env.COOKIE_KEY]
@@ -50,7 +50,7 @@ app.use('*', (req, res, next) => {
 
 // any routes not picked up by the server api will be handled by the react router
 app.get('*', function (req, res) {
-    res.sendFile(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI || '/', 'index.html'));
+    res.sendFile(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI || '../build', 'index.html'));
 });
 
 
