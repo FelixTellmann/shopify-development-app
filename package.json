@@ -1,0 +1,7 @@
+{
+  "name": "022-shopify-development-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Felix Tellmann <felix@tellmann.co.za>",
+  "license": "MIT"
+}

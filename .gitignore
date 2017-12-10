@@ -1,0 +1,32 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# development environment
+.idea
+ngrok.exe
+package-backup.json
+
+# dependencies
+node_modules
+
+# testing
+coverage
+
+# production
+build
+routes
+src
+public
+models
+
+
+# misc
+.DS_Store
+.yarnclean
+npm-debug.log
+yarn-error.log
+*.rdb
+.storybook
+
+# security
+.env
+
