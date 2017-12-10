@@ -8,7 +8,7 @@
   "scripts": {
     "install": "ls",
     "heroku-postbuild": "yarn build",
-    "build": "rimraf ./build &&concurrently  \"yarn build:server\" \"yarn build:client\"",
+    "build": "concurrently  \"yarn build:client\" \"yarn build:server\"",
     "build:server": "babel . --ignore node_modules,build,src --out-dir build",
     "build:client": "react-scripts build",
     "clean": "concurrently \"rimraf node_modules\" \"rimraf build\"",
