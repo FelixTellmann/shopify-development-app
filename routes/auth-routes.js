@@ -27,7 +27,7 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-router.get('/auth', (req, res, next) => {
+router.get('/', (req, res, next) => {
     if (typeof req.query.shop !== 'string') {
         return res.status(400).send(appURI + '/auth?shop=liquix-app-development.myshopify.com');
     }
@@ -42,7 +42,6 @@ router.get('/auth', (req, res, next) => {
     }, (accessToken, refreshToken, profile, done) => {
         Shop.findOne({shopId: profile.id}).then((currentUser) => {
             if (currentUser) {
-                console.log(currentUser);
                 return done(null, currentUser);
             } else {
                 new Shop({
@@ -51,7 +50,6 @@ router.get('/auth', (req, res, next) => {
                     email: profile.emails[0].value,
                     accessToken: accessToken,
                 }).save().then((newUser) => {
-                    console.log(newUser);
                     return done(null, newUser);
                 });
             }
@@ -64,7 +62,7 @@ router.get('/auth', (req, res, next) => {
     })(req, res, next);
 });
 
-router.get('/auth/shop', (req, res, next) => {
+router.get('/shop', (req, res, next) => {
     const {shop, hmac, code, state} = req.query;
     const stateCookie = cookie.parse(req.headers.cookie).state;
 
@@ -77,7 +75,6 @@ router.get('/auth/shop', (req, res, next) => {
     const stateCookie = cookie.parse(req.headers.cookie).state;
     passport.unuse(`shopify-${stateCookie}`);
     return res.redirect('https://' + req.user.shop_URI + '/admin/apps/' + process.env.SHOPIFY_API_KEY);
-    /*return res.send({message: 'successfully logged in', user: req.user});*/
 });
 
 export default router;

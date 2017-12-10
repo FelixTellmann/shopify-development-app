@@ -14,7 +14,6 @@ class App extends Component {
         this.setState({cities: cities});
     }
 
-
     render() {
         return (
             <EmbeddedApp
