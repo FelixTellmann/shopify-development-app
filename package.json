@@ -1,6 +1,28 @@
 {
-  "name": "022-shopify-development-app",
-  "version": "0.1.0",
+  "name": "shopify-development-app",
+  "version": "1.0.0",
+  "description": "Shopify Boilerplate App based on MERN Stack to fully integrate into the Shopify App store. Going through OAuth, Billing API, Embedded App SDK providing an interface based on Polaris.",
+  "main": "src/index.js",
+  "proxy": "http://localhost:3001",
+  "scripts": {
+    "install": "yarn",
+    "heroku-postbuild": "yarn build",
+    "build": "concurrently \"yarn build:server\" \"yarn build:client\"",
+    "build:server": "babel . --ignore node_modules,build,src --out-dir build",
+    "build:client": "react-scripts build",
+    "clean": "rimraf node_modules build",
+    "start": "concurrently \"PORT=3001 yarn start:server\" \"PORT=3000 yarn start:client\"",
+    "start:ngrok": "ngrok.exe http 3001",
+    "start:win": "concurrently \"yarn start:server\" \"yarn start:client\" ",
+    "start:server": "nodemon -r dotenv/config -r babel-register server.js",
+    "start:server:prod": "node -r dotenv/config -r ./build/server.js",
+    "start:server:local": "nodemon -r dotenv/config -r ./build/server.js",
+    "start:client": "react-scripts start",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
+  },
   "private": true,
   "dependencies": {
     "@shopify/polaris": "^1.8.3",
@@ -23,19 +45,23 @@
     "request-promise": "^4.2.2",
     "rimraf": "^2.6.2"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
-  },
   "devDependencies": {
     "babel-register": "^6.26.0",
     "nodemon": "^1.12.5",
     "@storybook/react": "^3.2.17",
     "@storybook/addon-actions": "^3.2.17",
     "@storybook/addon-links": "^3.2.17"
-  }
+  },
+  "keywords": [
+    "Shopify",
+    "Node",
+    "Express",
+    "React",
+    "Polaris",
+    "Passport",
+    "App",
+    "Liquix",
+    "Boilerplate",
+    "Development"
+  ]
 }
