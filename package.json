@@ -52,7 +52,8 @@
     "@storybook/addon-links": "^3.2.17",
     "@storybook/react": "^3.2.17",
     "babel-register": "^6.26.0",
-    "nodemon": "^1.12.5"
+    "nodemon": "^1.12.5",
+    "passport-strategy": "^1.0.0"
   },
   "keywords": [
     "Shopify",

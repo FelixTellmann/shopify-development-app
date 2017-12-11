@@ -1,13 +1,14 @@
 import mongoose, {Schema} from 'mongoose';
 
-const shopSchema = new Schema({
+const userSchema = new Schema({
     shopId: Number,
     shop_URI: String,
     email: String,
     accessToken: String,
     refreshToken: String,
+    params: Object
 });
 
-const Shop = mongoose.model('shop', shopSchema);
+const User = mongoose.model('user', userSchema);
 
-export default Shop;
+export default User;
