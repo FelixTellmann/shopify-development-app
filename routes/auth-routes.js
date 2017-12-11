@@ -3,7 +3,7 @@ import cookie from 'cookie';
 import nonceApp from 'nonce';
 import passport from 'passport';
 import {Strategy} from 'passport-shopify';
-import User from '../models/shop-model';
+import User from '../models/user';
 import mongoose from 'mongoose';
 
 const nonce = nonceApp();
@@ -17,15 +17,6 @@ const appURI = process.env.SHOPIFY_APP_URI;
 const appScopes = process.env.SHOPIFY_APP_SCOPES;
 const redirectUri = appURI + '/auth/shop';
 
-passport.serializeUser((user, done) => {
-    done(null, user._id);
-});
-
-passport.deserializeUser((id, done) => {
-    User.findById(id).then((user) => {
-        done(null, user);
-    });
-});
 
 /*================ Route to App installation - /auth?shop= ================*/
 router.get('/', (req, res, next) => {
@@ -43,6 +34,21 @@ router.get('/', (req, res, next) => {
         callbackURL: redirectUri,
         shop: shop
     }, (accessToken, refreshToken, params, profile, done) => {
+        if (process.env.SHOPIFY_APP_GRANT_OPTIONS !== '') {
+            User.findOneAndUpdate({shopId: profile.id}, {
+                shop_HEADERS: {
+                    'headers': {
+                        'X-Shopify-Access-Token': accessToken,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                },
+                accessToken: accessToken,
+                params: params
+            }).then((updatedUser) => {
+                return done(null, updatedUser);
+            });
+        }
         User.findOne({shopId: profile.id}).then((currentUser) => {
             if (currentUser) {
                 return done(null, currentUser);
@@ -50,6 +56,13 @@ router.get('/', (req, res, next) => {
                 new User({
                     shopId: profile.id,
                     shop_URI: profile.profileURL,
+                    shop_HEADERS: {
+                        'headers': {
+                            'X-Shopify-Access-Token': accessToken,
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        }
+                    },
                     email: profile.emails[0].value,
                     accessToken: accessToken,
                     params: params

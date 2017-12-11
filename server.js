@@ -8,6 +8,7 @@ import apiRoutes from './routes/api-routes'
 import appRoutes from './routes/app-routes'
 import authRoutes from './routes/auth-routes';
 import indexRoutes from './routes/index-routes'
+import User from "./models/user";
 
 const app = express();
 mongoose.connect(process.env.PROD_DB);
@@ -25,9 +26,21 @@ app.use(express.urlencoded({extended: false}));
 app.use(passport.initialize());
 app.use(passport.session());
 
+/*================ Passport User Identification ================*/
+passport.serializeUser((user, done) => {
+    done(null, user._id);
+});
+
+passport.deserializeUser((id, done) => {
+    User.findById(id).then((user) => {
+        done(null, user);
+    });
+});
+
 /*================ Public Routes - Express.js Passport.js Back-end - React.js Front-end ================*/
 app.use('/', indexRoutes);
 app.use('/auth', authRoutes);
+app.use('/login', indexRoutes);
 
 /*================ Public Rules - React.js Front-end ================*/
 app.use('/static', express.static(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI || '../build', '/static')));

@@ -1,5 +1,7 @@
 import express from 'express';
 import path from 'path';
+/*import request from 'request';*/
+import request from 'request-promise';
 
 const router = express.Router();
 
@@ -8,7 +10,7 @@ const checkAuth = (req, res, next) => {
     if (!req.user && hmac && shop) {
         res.redirect(`/auth?shop=${shop}&hmac=${hmac}`);
     } else if (!req.user) {
-        res.redirect('/');
+        res.redirect('/login');
     } else {
         next();
     }
@@ -17,7 +19,7 @@ const checkAuth = (req, res, next) => {
 router.use('*', checkAuth);
 
 /** Add routes above this route to create static routes*/
-router.get('*', function (req, res) {
+router.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../', process.env.SHOPIFY_APP_RESOURCE_URI || '../build', 'index.html'));
 });
 
