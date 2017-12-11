@@ -29,7 +29,7 @@ router.all('*', (req, res) => {
     };
     console.log(options);
     (async () => {
-        res.send(await (await fetch(`https://${req.user.shop_URI}/admin${req.params[0]}`, options)).json())
+        res.json(await (await fetch(`https://${req.user.shop_URI}/admin${req.params[0]}`, options)).json())
     })();
 });
 
