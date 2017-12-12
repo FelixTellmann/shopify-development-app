@@ -7,15 +7,15 @@
     "install": "(cd server && yarn) && (cd ../client_app && yarn) && (cd ../client_index && yarn)",
     "heroku-postbuild": "yarn build",
     "build": "cd server && yarn build",
-    "build:server":  "cd server && yarn build:server",
-    "build:client:app":  "cd server && yarn build:client:app",
-    "build:client:index":  "cd server && yarn build:client:index",
+    "build:server": "cd server && yarn build:server",
+    "build:client:app": "cd server && yarn build:client:app",
+    "build:client:index": "cd server && yarn build:client:index",
     "ngrok": "ngrok.exe http 3000",
     "start": "cd server && yarn start",
     "start:server": "cd server && yarn start:server",
     "start:prod": "cd server && yarn start:prod",
     "clean": "cd server && yarn clean",
-    "clean:build":  "cd server && yarn clean:build"
+    "clean:build": "cd server && yarn clean:build"
   },
   "keywords": [
     "Shopify",
@@ -31,5 +31,6 @@
   ],
   "engines": {
     "node": "8.9.1"
-  }
+  },
+  "dependencies": {}
 }
