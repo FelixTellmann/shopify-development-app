@@ -4,7 +4,7 @@
   "author": "Felix Tellmann",
   "description": "Shopify Boilerplate App based on MERN Stack to fully integrate into the Shopify App store. Going through OAuth, Billing API, Embedded App SDK providing an interface based on Polaris.",
   "scripts": {
-    "install": "(cd server && yarn) && (cd ../client_app && yarn) && (cd ../client_index && yarn)",
+    "install": "(cd server && yarn) && (cd client_app && yarn) && (cd client_index && yarn)",
     "heroku-postbuild": "yarn build",
     "build": "cd server && yarn build",
     "build:server": "cd server && yarn build:server",
