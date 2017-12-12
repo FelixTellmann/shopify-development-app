@@ -27,9 +27,8 @@ router.all('*', (req, res) => {
         method,
         body,
     };
-    console.log(options);
     (async () => {
-        res.json(await (await fetch(`https://${req.user.shop_URI}/admin${req.params[0]}`, options)).json())
+        res.json(await (await fetch(`https://${req.user.shop_URI}/admin${req.url}`, options)).json())
     })();
 });
 

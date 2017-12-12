@@ -11,6 +11,9 @@ import indexRoutes from './routes/index-routes'
 import User from "./models/user";
 
 const app = express();
+process.env['ROOT'] = path.join(__dirname, '/..');
+console.log(path.join(process.env.ROOT, '/client_index/build', '/static'));
+
 mongoose.connect(process.env.PROD_DB);
 
 /*================ settings ================*/
@@ -43,8 +46,8 @@ app.use('/auth', authRoutes);
 app.use('/login', indexRoutes);
 
 /*================ Public Rules - React.js Front-end ================*/
-app.use('/static', express.static(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI || '../build', '/static')));
-app.use('/app/static', express.static(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI || '../build', '/static')));
+app.use('/static', express.static(path.join(process.env.ROOT, '/client_index/build', '/static')));
+app.use('/app/static', express.static(path.join(process.env.ROOT, '/client_index/build', '/static')));
 
 /*================ Private Rules - User Specific - Express.js Back-end - React.js Front-end ================*/
 app.use('/api', apiRoutes);

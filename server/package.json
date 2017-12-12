@@ -1,0 +1,58 @@
+{
+  "name": "shopify-development-app",
+  "version": "0.4.1",
+  "author": "Felix Tellmann",
+  "description": "Shopify Boilerplate App based on MERN Stack to fully integrate into the Shopify App store. Going through OAuth, Billing API, Embedded App SDK providing an interface based on Polaris.",
+  "scripts": {
+    "heroku-postbuild": "yarn build",
+    "build": "concurrently  \"yarn build:server\" \"yarn build:client:app\" \"yarn build:client:index\"",
+    "build:server": "rimraf build && babel . --ignore node_modules,build --out-dir build",
+    "build:client:app": "cd ../client_app && (rimraf build && yarn build)",
+    "build:client:index": "cd ../client_index && (rimraf build && yarn build)",
+    "clean": "concurrently \"rimraf node_modules\" \"rimraf build\" \"rimraf ../client_app/node_modules\" \"rimraf ../client_app/build\" \"rimraf ../client_index/node_modules\" \"rimraf ../client_index/build\" ",
+    "clean:build": "concurrently \"rimraf build\" \"rimraf ../client_app/build\" \"rimraf ../client_index/build\" ",
+    "start": "concurrently \"yarn start:server\" \"cd ../client_app && yarn start\" \"cd ../client_index && yarn start\"",
+    "start:prod": "node -r dotenv/config -r ./build/server.js",
+    "start:server": "nodemon -r dotenv/config -r babel-register server.js",
+    "start:server:local": "nodemon -r dotenv/config -r ./build/server.js"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "concurrently": "^3.5.1",
+    "cookie": "^0.3.1",
+    "cookie-session": "^2.0.0-beta.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.6",
+    "node-fetch": "^1.7.3",
+    "nonce": "^1.0.4",
+    "passport": "^0.4.0",
+    "passport-shopify": "^0.1.2",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "rimraf": "^2.6.2"
+  },
+  "devDependencies": {
+    "babel-register": "^6.26.0",
+    "nodemon": "^1.12.5",
+    "passport-strategy": "^1.0.0"
+  },
+  "keywords": [
+    "Shopify",
+    "Node",
+    "Express",
+    "React",
+    "Polaris",
+    "Passport",
+    "App",
+    "Liquix",
+    "Boilerplate",
+    "Development"
+  ],
+  "engines": {
+    "node": "8.9.1"
+  }
+}
