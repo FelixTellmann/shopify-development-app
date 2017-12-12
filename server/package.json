@@ -1,5 +1,5 @@
 {
-  "name": "shopify-development-app",
+  "name": "server",
   "version": "0.4.1",
   "author": "Felix Tellmann",
   "description": "Shopify Boilerplate App based on MERN Stack to fully integrate into the Shopify App store. Going through OAuth, Billing API, Embedded App SDK providing an interface based on Polaris.",
@@ -51,8 +51,5 @@
     "Liquix",
     "Boilerplate",
     "Development"
-  ],
-  "engines": {
-    "node": "8.9.1"
-  }
+  ]
 }
