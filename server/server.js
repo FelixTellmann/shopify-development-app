@@ -4,10 +4,13 @@ import passport from 'passport';
 import mongoose from 'mongoose';
 import cookieSession from 'cookie-session';
 
-import apiRoutes from './routes/api-routes'
-import appRoutes from './routes/app-routes'
-import authRoutes from './routes/auth-routes';
-import indexRoutes from './routes/index-routes'
+/*================ Import Routes ================*/
+import apiRoutes from './routes/api';
+import appRoutes from './routes/app';
+import authRoutes from './routes/auth';
+import indexRoutes from './routes/index';
+
+/*================ Import Models ================*/
 import User from "./models/user";
 
 const app = express();
@@ -37,21 +40,20 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-/*================ Public Routes - Express.js Passport.js Back-end - React.js Front-end ================*/
-app.use('/', indexRoutes);
-app.use('/auth', authRoutes);
-app.use('/login', indexRoutes);
-
 /*================ Public Rules - React.js Front-end ================*/
-
 app.use('/static', express.static(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI, '/client_index/build', '/static')));
 app.use('/app/static', express.static(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI, '/client_app/build', '/static')));
 
 /*================ Private Rules - User Specific - Express.js Back-end - React.js Front-end ================*/
 app.use('/api', apiRoutes);
+app.use('/admin', apiRoutes);
 app.use('/app', appRoutes);
 
+/*================ Public Routes - Express.js Passport.js Back-end - React.js Front-end ================*/
+app.use('/auth', authRoutes);
+app.use('/', indexRoutes);
 
+/*================ Server Startup ================*/
 app.set('port', (process.env.PORT || 3001));
 app.listen(app.get('port'), () => {
     console.log(`Listening on ${app.get('port')}`);

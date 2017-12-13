@@ -17,6 +17,15 @@ const checkAuth = (req, res, next) => {
     }
 };
 
+
+/*
+'headers': {
+    'X-Shopify-Access-Token': accessToken,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+}
+*/
+
 router.use('*', checkAuth);
 
 router.all('*', (req, res) => {
