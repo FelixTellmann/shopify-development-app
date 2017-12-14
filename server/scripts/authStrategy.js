@@ -1,5 +1,6 @@
 import {Strategy} from 'passport-shopify';
 import User from '../models/user';
+import Shop from '../models/shop';
 
 /*================ .env Variables ================*/
 const appApiKey = process.env.SHOPIFY_API_KEY;
@@ -16,61 +17,60 @@ const authStrategy = function createUniqueStrategy(shop, state) {
         scope: appScopes,
         shop: shop
     }, (accessToken, refreshToken, params, profile, done) => {
-        User.findOne({shop: profile.id}).then((currentUser) => {
-            if (currentUser && process.env.SHOPIFY_APP_GRANT_OPTIONS !== '') {
-                User.findOneAndUpdate({shop: profile.id, "users.id": params.associated_user.id}, {
-                    $set: {
-                        "users.$.id": params.associated_user.id,
-                        "users.$.first_name": params.associated_user.first_name,
-                        "users.$.last_name": params.associated_user.last_name,
-                        "users.$.email": params.associated_user.email,
-                        "users.$.associated_scope": params.associated_user_scope,
-                        "users.$.access_token": params.access_token,
-                    }
-                }).then((updatedUser) => {
-                    if (updatedUser) {
-                        return done(null, updatedUser);
-                    } else {
-                        User.findOneAndUpdate({shop: profile.id}, {
-                            $addToSet: {
-                                users: {
-                                    access_token: params.access_token,
-                                    associated_scope: params.associated_user_scope,
-                                    email: params.associated_user.email,
-                                    last_name: params.associated_user.last_name,
-                                    first_name: params.associated_user.first_name,
-                                    id: params.associated_user.id,
-                                }
-                            }
-                        }).then((updatedUser) => {
-                            return done(null, updatedUser);
-                        });
-                    }
-                });
-            } else if (currentUser) {
-                return done(null, currentUser);
-            } else {
-                new User({
+        /*================ Find or Insert Shop ================*/
+        Shop.findOneAndUpdate(
+            {
+                shop: profile.id
+            },
+            {
+                $setOnInsert: {
                     shop: profile.id,
                     shop_URI: profile.profileURL,
                     shop_name: profile.username,
                     email: profile.emails[0].value,
-                    access_token: accessToken,
                     scope: params.scope,
+                    access_token: params.access_token,
                     charge_approved: false,
-                    users: [
+                    users: []
+                }
+            },
+            {
+                new: true,
+                upsert: true
+            }).then((shop) => {
+            if (appGrantOptions) { // If Online access_token is required based on user Scope Levels
+                /*================ Find, Update or Insert User ================*/
+                User.findOneAndUpdate(
+                    {
+                        id: params.associated_user.id
+                    },
+                    {
+                        id: params.associated_user.id,
+                        first_name: params.associated_user.first_name,
+                        last_name: params.associated_user.last_name,
+                        email: params.associated_user.email,
+                        associated_scope: params.associated_user_scope,
+                        access_token: params.access_token
+                    },
+                    {
+                        upsert: true, new: true,
+                        runValidators: true
+                    }).then((user) => {
+                    /*================ Find Shop & AddToSet User._id ================*/
+                    Shop.findOneAndUpdate(
                         {
-                            id: params.associated_user.id,
-                            first_name: params.associated_user.first_name,
-                            last_name: params.associated_user.last_name,
-                            email: params.associated_user.email,
-                            associated_scope: params.associated_user_scope,
-                            access_token: params.access_token,
-                        }
-                    ]
-                }).save().then((newUser) => {
-                    return done(null, newUser);
+                            shop: profile.id
+                        },
+                        {
+                            $addToSet: {
+                                users: user._id
+                            }
+                        }).then((updatedUser) => {
+                        return done(null, user);
+                    });
                 });
+            } else { // If Offline access_token is required based app requested Scope
+                return done(null, shop);
             }
         });
     });

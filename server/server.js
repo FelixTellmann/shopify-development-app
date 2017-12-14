@@ -12,6 +12,7 @@ import indexRoutes from './routes/index';
 
 /*================ Import Models ================*/
 import User from "./models/user";
+import Shop from "./models/shop";
 
 const app = express();
 mongoose.connect(process.env.PROD_DB);
@@ -35,9 +36,15 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    User.findById(id).then((user) => {
-        done(null, user);
-    });
+    if (process.env.SHOPIFY_APP_GRANT_OPTIONS) { // If Online access_token is required based on user Scope Levels
+        User.findById(id).then((user) => {
+            done(null, user);
+        });
+    } else { // If Offline access_token is required based app requested Scope
+        Shop.findById(id).then((user) => {
+            done(null, user);
+        });
+    }
 });
 
 /*================ Public Rules - React.js Front-end ================*/

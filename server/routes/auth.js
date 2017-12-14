@@ -22,6 +22,7 @@ router.get('/shop', (req, res, next) => {
     passport.authenticate(`shopify-${req.query.state}`)(req, res, next);
 }, (req, res) => {
     passport.unuse(`shopify-${req.query.state}`);
+    console.log(req.user);
     return res.redirect('/app');
 });
 
