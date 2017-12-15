@@ -54,11 +54,14 @@ const createCharge = async (req, res, next) => {
     }
 
     /*================ If no Charge is setup, activate free charge to fast forward the chargeCheck ================*/
+    console.log(application_charge);
+    console.log(recurring_application_charge);
     if (application_charge <= 0 && recurring_application_charge <= 0) {
         options = false;
     }
 
     if (options) {
+        console.log('this shouldnt happen');
         const data = await (await fetch(`https://${req.user.shop_URI}/admin/${options.chargeType}s.json`, options)).json();
         const charge = await Charge.findOneAndUpdate(
             {
