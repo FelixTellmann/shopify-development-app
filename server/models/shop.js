@@ -9,7 +9,8 @@ const shopSchema = new Schema({
     scope: String,
     sign_up_date: { type: Date, default: Date.now },
     charge_approved: { type: Boolean, default: false },
-    charges: [],
+    charge_activated_date: Date,
+    charges: [{type:Schema.ObjectId, ref:'charges'}],
     users: [{type:Schema.ObjectId, ref:'users'}]
 });
 
