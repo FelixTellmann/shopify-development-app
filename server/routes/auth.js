@@ -1,10 +1,10 @@
 import express from 'express';
 import nonceApp from 'nonce';
 import passport from 'passport';
-import AuthStrategy from '../scripts/AuthStrategy';
-import checkCharge from '../scripts/checkCharge';
-import createCharge from '../scripts/createCharge';
-import activateCharge from '../scripts/activateCharge';
+import AuthStrategy from '../scripts/auth-strategy';
+import checkCharge from '../scripts/check-charge';
+import createCharge from '../scripts/create-charge';
+import activateCharge from '../scripts/activate-charge';
 
 const nonce = nonceApp();
 const router = express.Router();

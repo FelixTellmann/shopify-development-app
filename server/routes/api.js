@@ -1,6 +1,6 @@
 import express from 'express';
 import fetch from 'node-fetch';
-import checkAuth from '../scripts/checkAuth';
+import checkAuth from '../scripts/check-auth';
 
 const router = express.Router();
 
