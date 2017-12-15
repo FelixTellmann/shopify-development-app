@@ -7,14 +7,14 @@ const chargeName = process.env.SHOPIFY_APP_CHARGE_NAME;
 const application_charge = process.env.SHOPIFY_APP_CHARGE_ONCE;
 const chargeTrialDays = process.env.SHOPIFY_APP_CHARGE_TRIAL_DAYS;
 const chargeTerms = process.env.SHOPIFY_APP_CHARGE_TERMS;
-const recurring_application_charge = process.env.SHOPIFY_APP_CHARGE_REOCCURRINg;
+const recurring_application_charge = process.env.SHOPIFY_APP_CHARGE_REOCCURRING;
 const chargeCap = process.env.SHOPIFY_APP_CHARGE_CAP;
 const chargeTest = process.env.SHOPIFY_APP_CHARGE_TEST === 'true' || false;
 const appURI = process.env.SHOPIFY_APP_URI;
 
 
 const createCharge = async (req, res, next) => {
-    let options = {
+        let options = {
         method: 'POST',
         headers: {
             'X-Shopify-Access-Token': req.user.access_token,
