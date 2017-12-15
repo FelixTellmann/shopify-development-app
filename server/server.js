@@ -20,7 +20,7 @@ mongoose.connect(process.env.PROD_DB);
 /*================ settings ================*/
 const cookieConfig = {
     maxAge: 7 * 24 * 60 * 60 * 1000,
-    keys: [process.env.COOKIE_KEY]
+    keys: [process.env.SHOPIFY_APP_COOKIE_KEY]
 };
 
 /*================ Express Middleware ================*/
@@ -61,7 +61,7 @@ app.use('/auth', authRoutes);
 app.use('/', indexRoutes);
 
 /*================ Server Startup ================*/
-app.set('port', (process.env.PORT || 3001));
+app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), () => {
     console.log(`Listening on ${app.get('port')}`);
 });

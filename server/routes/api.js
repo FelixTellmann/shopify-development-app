@@ -7,6 +7,7 @@ const router = express.Router();
 router.use('*', checkAuth);
 
 router.all('*', (req, res) => {
+
     const {access_token} = req.user;
     const {method, body} = req;
     const options = {

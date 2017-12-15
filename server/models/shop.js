@@ -7,8 +7,9 @@ const shopSchema = new Schema({
     email: String,
     access_token: String,
     scope: String,
-    charge_approved: { type: Boolean, default: false },
     sign_up_date: { type: Date, default: Date.now },
+    charge_approved: { type: Boolean, default: false },
+    charges: [],
     users: [{type:Schema.ObjectId, ref:'users'}]
 });
 
