@@ -29,10 +29,6 @@ router.get('/shop', (req, res, next) => {
     return res.redirect('/auth/charge');
 });
 
-router.get('/charge', checkCharge);
-
-router.get('/charge', createCharge);
-
-router.get('/charge/shop', activateCharge);
+router.get('/charge', activateCharge, checkCharge, createCharge);
 
 export default router;

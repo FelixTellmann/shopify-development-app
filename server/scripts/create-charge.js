@@ -29,7 +29,7 @@ const createCharge = async (req, res, next) => {
             application_charge: {
                 name: chargeName,
                 price: application_charge,
-                return_url: appURI + '/auth/charge/shop',
+                return_url: appURI + '/auth/charge',
                 trial_days: chargeTrialDays,
                 test: chargeTest
             }
@@ -43,7 +43,7 @@ const createCharge = async (req, res, next) => {
             recurring_application_charge: {
                 name: chargeName,
                 price: recurring_application_charge,
-                return_url: appURI + '/auth/charge/shop',
+                return_url: appURI + '/auth/charge',
                 trial_days: chargeTrialDays,
                 capped_amount: chargeCap,
                 terms: chargeTerms,
