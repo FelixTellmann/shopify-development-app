@@ -1,20 +1,8 @@
 import express from 'express';
 import path from 'path';
-/*import request from 'request';*/
-import request from 'request-promise';
+import checkAuth from '../scripts/checkAuth';
 
 const router = express.Router();
-
-const checkAuth = (req, res, next) => {
-    const {hmac, shop} = req.query;
-    if (!req.user && hmac && shop) {
-        res.redirect(`/auth?shop=${shop}&hmac=${hmac}`);
-    } else if (!req.user) {
-        res.redirect('/login');
-    } else {
-        next();
-    }
-};
 
 router.use('*', checkAuth);
 

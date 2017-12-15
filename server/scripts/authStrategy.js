@@ -16,9 +16,9 @@ const authStrategy = function createUniqueStrategy(shop, state) {
         callbackURL: appURI + '/auth/shop',
         scope: appScopes,
         shop: shop
-    }, (accessToken, refreshToken, params, profile, done) => {
+    }, async (accessToken, refreshToken, params, profile, done) => {
         /*================ Find or Insert Shop ================*/
-        Shop.findOneAndUpdate(
+        const shop = await Shop.findOneAndUpdate(
             {
                 shop: profile.id
             },
@@ -29,7 +29,7 @@ const authStrategy = function createUniqueStrategy(shop, state) {
                     shop_name: profile.username,
                     email: profile.emails[0].value,
                     scope: params.scope,
-                    access_token: params.access_token,
+                    access_token: accessToken,
                     charge_approved: false,
                     users: []
                 }
@@ -37,43 +37,45 @@ const authStrategy = function createUniqueStrategy(shop, state) {
             {
                 new: true,
                 upsert: true
-            }).then((shop) => {
-            if (appGrantOptions) { // If Online access_token is required based on user Scope Levels
-                /*================ Find, Update or Insert User ================*/
-                User.findOneAndUpdate(
-                    {
-                        id: params.associated_user.id
-                    },
-                    {
-                        id: params.associated_user.id,
-                        first_name: params.associated_user.first_name,
-                        last_name: params.associated_user.last_name,
-                        email: params.associated_user.email,
-                        associated_scope: params.associated_user_scope,
-                        access_token: params.access_token
-                    },
-                    {
-                        upsert: true, new: true,
-                        runValidators: true
-                    }).then((user) => {
-                    /*================ Find Shop & AddToSet User._id ================*/
-                    Shop.findOneAndUpdate(
-                        {
-                            shop: profile.id
-                        },
-                        {
-                            $addToSet: {
-                                users: user._id
-                            }
-                        }).then((updatedUser) => {
-                        return done(null, user);
-                    });
+            });
+
+        if (appGrantOptions) { // If Online access_token is required based on user Scope Levels
+            /*================ Find, Update or Insert User ================*/
+            const user = await User.findOneAndUpdate(
+                {
+                    id: params.associated_user.id
+                },
+                {
+                    id: params.associated_user.id,
+                    shop_URI: profile.profileURL,
+                    first_name: params.associated_user.first_name,
+                    last_name: params.associated_user.last_name,
+                    email: params.associated_user.email,
+                    associated_scope: params.associated_user_scope,
+                    access_token: params.access_token
+                },
+                {
+                    upsert: true, new: true,
+                    runValidators: true
                 });
-            } else { // If Offline access_token is required based app requested Scope
-                return done(null, shop);
-            }
-        });
+
+            /*================ Find Shop & AddToSet User._id ================*/
+            await Shop.findOneAndUpdate(
+                {
+                    shop: profile.id
+                },
+                {
+                    $addToSet: {
+                        users: user._id
+                    }
+                });
+
+            return done(null, user);
+        } else { // If Offline access_token is required based app requested Scope
+            return done(null, shop);
+        }
     });
+
     ShopifyStrategy.authorizationParams = () => {
         return {
             state: state,
