@@ -54,7 +54,7 @@ const createCharge = async (req, res, next) => {
     }
 
     /*================ If no Charge is setup, activate free charge to fast forward the chargeCheck ================*/
-    if (application_charge == 0 && recurring_application_charge == 0) {
+    if (application_charge <= 0 && recurring_application_charge <= 0) {
         options = false;
     }
 
