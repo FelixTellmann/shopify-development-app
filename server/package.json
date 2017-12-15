@@ -5,7 +5,6 @@
   "description": "Shopify Boilerplate App based on MERN Stack to fully integrate into the Shopify App store. Going through OAuth, Billing API, Embedded App SDK providing an interface based on Polaris.",
   "scripts": {
     "heroku-postbuild": "yarn build",
-//    "build": "concurrently  \"yarn build:server\" \"yarn build:client:app\" \"yarn build:client:index\"", /* Deactivated for server development on heroku */
     "build": "concurrently  \"yarn build:server\"",
     "build:server": "rimraf build && babel . --ignore node_modules,build --out-dir build",
     "build:client:app": "cd ../client_app && (rimraf build && yarn build)",
