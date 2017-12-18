@@ -9,6 +9,7 @@ import activateCharge from '../scripts/activate-charge';
 const nonce = nonceApp();
 const router = express.Router();
 
+const development = process.env.DEVELOPMENT === 'true' || false;
 
 /*================ Route to App installation - /auth?shop= ================*/
 router.get('/', (req, res, next) => {
@@ -29,6 +30,12 @@ router.get('/shop', (req, res, next) => {
     return res.redirect('/auth/charge');
 });
 
-router.get('/charge', activateCharge, checkCharge, createCharge);
+router.get('/charge', checkCharge, createCharge, (req, res) => {
+    return development ? res.redirect('http://localhost:3001/') : res.redirect('https://' + req.user.shop_URI + '/admin/apps/' + process.env.SHOPIFY_API_KEY);
+});
+
+router.get('/charge/activate', activateCharge, (req, res) => {
+    return development ? res.redirect('http://localhost:3001/') : res.redirect('https://' + req.user.shop_URI + '/admin/apps/' + process.env.SHOPIFY_API_KEY);
+});
 
 export default router;

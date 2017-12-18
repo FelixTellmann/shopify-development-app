@@ -3,10 +3,21 @@ import fetch from 'node-fetch';
 import checkAuth from '../scripts/check-auth';
 
 const router = express.Router();
+const development = process.env.DEVELOPMENT === 'true' || false;
+const development_access_token = process.env.DEVELOPMENT_ACCESS_TOKEN || false;
+const development_shop_URI = process.env.DEVELOPMENT_SHOP || false;
 
-router.use('*', checkAuth);
+if (!development || !development_access_token || !development_shop_URI) {
+    router.use('*', checkAuth);
+}
 
 router.all('*', (req, res) => {
+
+    if (development && development_access_token && development_shop_URI) {
+        req.user = {};
+        req.user.access_token = development_access_token;
+        req.user.shop_URI = development_shop_URI
+    }
 
     const {access_token} = req.user;
     const {method, body} = req;

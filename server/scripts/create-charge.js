@@ -14,7 +14,7 @@ const appURI = process.env.SHOPIFY_APP_URI;
 
 
 const createCharge = async (req, res, next) => {
-        let options = {
+    let options = {
         method: 'POST',
         headers: {
             'X-Shopify-Access-Token': req.user.access_token,
@@ -29,7 +29,7 @@ const createCharge = async (req, res, next) => {
             application_charge: {
                 name: chargeName,
                 price: application_charge,
-                return_url: appURI + '/auth/charge',
+                return_url: appURI + '/auth/charge/activate',
                 trial_days: chargeTrialDays,
                 test: chargeTest
             }
@@ -43,7 +43,7 @@ const createCharge = async (req, res, next) => {
             recurring_application_charge: {
                 name: chargeName,
                 price: recurring_application_charge,
-                return_url: appURI + '/auth/charge',
+                return_url: appURI + '/auth/charge/activate',
                 trial_days: chargeTrialDays,
                 capped_amount: chargeCap,
                 terms: chargeTerms,
@@ -58,8 +58,8 @@ const createCharge = async (req, res, next) => {
         options = false;
     }
 
+    /*================ If there is a charge - create charge & redirect to confirmation_url ================*/
     if (options) {
-        console.log('this shouldnt happen');
         const data = await (await fetch(`https://${req.user.shop_URI}/admin/${options.chargeType}s.json`, options)).json();
         const charge = await Charge.findOneAndUpdate(
             {
@@ -78,6 +78,7 @@ const createCharge = async (req, res, next) => {
             });
         res.redirect(charge.data.confirmation_url);
     } else {
+        /*================ If there is no charge, create a db entry with datetime & charge approval ================*/
         await Shop.findOneAndUpdate(
             {
                 shop_URI: req.user.shop_URI
@@ -86,11 +87,7 @@ const createCharge = async (req, res, next) => {
                 charge_approved: true,
                 charge_activated_date: Date.now()
             });
-        if (process.env.DEVELOPMENT === 'true') {
-            return res.redirect('/app');
-        } else {
-            return res.redirect('https://' + req.user.shop_URI + '/admin/apps/' + process.env.SHOPIFY_API_KEY);
-        }
+        next();
     }
 };
 

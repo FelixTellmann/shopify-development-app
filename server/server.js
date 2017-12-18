@@ -53,7 +53,7 @@ app.use('/app/static', express.static(path.join(__dirname, process.env.SHOPIFY_A
 
 /*================ Private Rules - User Specific - Express.js Back-end - React.js Front-end ================*/
 app.use('/api', apiRoutes);
-app.use('/admin', apiRoutes);
+app.use('/app/api', apiRoutes);
 app.use('/app', appRoutes);
 
 /*================ Public Routes - Express.js Passport.js Back-end - React.js Front-end ================*/

@@ -7,7 +7,7 @@ const appApiKey = process.env.SHOPIFY_API_KEY;
 const appApiSecret = process.env.SHOPIFY_APP_API_SECRET;
 const appURI = process.env.SHOPIFY_APP_URI;
 const appScopes = process.env.SHOPIFY_APP_SCOPES;
-const appGrantOptions = process.env.SHOPIFY_APP_GRANT_OPTIONS;
+const appGrantOptions = process.env.SHOPIFY_APP_GRANT_OPTIONS || false;
 
 class AuthStrategy {
     constructor(shop, state) {
