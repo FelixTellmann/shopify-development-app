@@ -9,7 +9,7 @@ class App extends Component {
     state = {cities: {}};
 
     async componentDidMount() {
-        const response = await fetch('/api/shop');
+        const response = await fetch('/api/shop', {credentials: "same-origin" });
         const cities = await response.json();
         console.log(cities);
     }
@@ -58,7 +58,6 @@ class App extends Component {
                             >
                                 <div>
                                     <ul>
-
 
 
                                     </ul>

@@ -7,9 +7,9 @@ const development = process.env.DEVELOPMENT === 'true' || false;
 const development_access_token = process.env.DEVELOPMENT_ACCESS_TOKEN || false;
 const development_shop_URI = process.env.DEVELOPMENT_SHOP || false;
 
-if (!development || !development_access_token || !development_shop_URI) {
+/*if (!development || !development_access_token || !development_shop_URI) {
     router.use('*', checkAuth);
-}
+}*/
 
 router.all('*', (req, res) => {
 
@@ -18,8 +18,7 @@ router.all('*', (req, res) => {
         req.user.access_token = development_access_token;
         req.user.shop_URI = development_shop_URI
     }
-    console.log('test');
-    console.log(req.user);
+
     const {access_token} = req.user;
     const {method, body} = req;
     const options = {
