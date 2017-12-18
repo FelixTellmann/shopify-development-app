@@ -18,7 +18,8 @@ router.all('*', (req, res) => {
         req.user.access_token = development_access_token;
         req.user.shop_URI = development_shop_URI
     }
-
+    console.log('test');
+    console.log(req.user);
     const {access_token} = req.user;
     const {method, body} = req;
     const options = {
