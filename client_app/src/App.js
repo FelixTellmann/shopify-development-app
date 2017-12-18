@@ -6,13 +6,12 @@ import {EmbeddedApp} from '@shopify/polaris/embedded';
 
 class App extends Component {
 
-    state = {cities: []};
+    state = {cities: {}};
 
     async componentDidMount() {
-        const response = await fetch('/app/api/products/count');
+        const response = await fetch('/api/shop');
         const cities = await response.json();
         console.log(cities);
-        /*this.setState({cities: cities});*/
     }
 
     render() {
@@ -60,9 +59,8 @@ class App extends Component {
                                 <div>
                                     <ul>
 
-                                        {/*{this.state.cities.map(city => {
-                                            return <li><b>{city}</b>:</li>;
-                                        })}*/}
+
+
                                     </ul>
                                 </div>
                             </Scrollable>
