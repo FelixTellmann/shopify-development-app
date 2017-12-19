@@ -6,12 +6,19 @@ import {EmbeddedApp} from '@shopify/polaris/embedded';
 
 class App extends Component {
 
-    state = {cities: {}};
+    state = {
+        shop: {},
+        products: {},
+        themes: {},
+        assets: {}
+    };
 
     async componentDidMount() {
-        const response = await fetch('/api/shop', {credentials: "same-origin" });
-        const cities = await response.json();
-        console.log(cities);
+        this.setState(await(await fetch('/api/shop', {credentials: "same-origin"})).json());
+        this.setState(await(await fetch('/api/products', {credentials: "same-origin"})).json());
+        this.setState(await(await fetch('/api/themes', {credentials: "same-origin"})).json());
+        this.setState(await(await fetch(`/api/themes/${this.state.themes[0].id}/assets`, {credentials: "same-origin"})).json());
+        console.log(this.state);
     }
 
     render() {
