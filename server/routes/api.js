@@ -11,12 +11,21 @@ if (!development || !development_access_token || !development_shop_URI) {
     router.use('*', checkAuth);
 }
 
-router.all('*', (req, res) => {
-
+router.get('/user', (req, res, next) => {
     if (development && development_access_token && development_shop_URI) {
         req.user = {};
         req.user.access_token = development_access_token;
-        req.user.shop_URI = development_shop_URI
+        req.user.shop_URI = development_shop_URI;
+    }
+    res.json(req.user);
+});
+
+
+router.all('*', (req, res) => {
+    if (development && development_access_token && development_shop_URI) {
+        req.user = {};
+        req.user.access_token = development_access_token;
+        req.user.shop_URI = development_shop_URI;
     }
 
     const {access_token} = req.user;
