@@ -2,17 +2,27 @@
 > Shopify base App based on MERN Stack to fully integrate into the Shopify App store. Going through OAuth, Billing API, Embedded App SDK providing an interface based on Polaris.
 
 
+Node.js - 8.9.x
+Yarn - 1.3.2
+npm - 5.5.1
+ngrok tunnel
+
 ![](header.png)
 
 ## Installation
 
-OS X & Linux:
+OS X, Linux & Windows:
 
 ```sh
-npm install my-crazy-module --save
+yarn install ||  npm install
 ```
 
-Windows:
+File Setup
+
+```fs
+Rename .sample.env to .env
+Download ngrok for development
+```
 
 ```sh
 edit autoexec.bat
