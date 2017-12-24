@@ -2,12 +2,6 @@
 > Shopify base App based on MERN Stack to fully integrate into the Shopify App store. Going through OAuth, Billing API, Embedded App SDK providing an interface based on Polaris.
 
 
-[![NODE Version][node-image]][node-url]
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
-
-One to two paragraph statement about your product and what it does.
-
 ![](header.png)
 
 ## Installation
