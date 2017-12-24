@@ -2,7 +2,7 @@
 > Shopify base App based on MERN Stack to fully integrate into the Shopify App store. Going through OAuth, Billing API, Embedded App SDK providing an interface based on Polaris.
 
 
-[![NPM Version][npm-image]][npm-url]
+[![NODE Version][node-image]][node-url]
 [![Build Status][travis-image]][travis-url]
 [![Downloads Stats][npm-downloads]][npm-url]
 
@@ -64,9 +64,8 @@ Distributed under the MIT license. See [LICENSE](https://github.com/FelixTellman
 
 
 <!-- Markdown link & img dfn's -->
-[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/datadog-metrics
-[npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
+[node-url]: https://npmjs.org/package/datadog-metrics
+[node-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
 [travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
 [travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
 [wiki]: https://github.com/yourname/yourproject/wiki

@@ -11,7 +11,7 @@ import reducer from './reducers/reducer';
 import {Provider} from 'react-redux';
 
 
-const store = createStore(reducer, {}, applyMiddleware(thunk, /*logger*/));
+const store = createStore(reducer, {}, applyMiddleware(thunk, logger));
 
 /*store.subscribe(() => {
     console.log("Store Changed", store.getState());
@@ -34,11 +34,11 @@ class Index extends Component {
 
     /*state = {};*/
 
-   /* async componentDidMount() {
-        this.setState({appApiKey: process.env.REACT_APP_API_KEY});
-        this.setState({shop_URI: (await(await fetch('/api/user', {credentials: "same-origin"})).json()).shop_URI});
-        console.log(this.state);
-    }*/
+    /* async componentDidMount() {
+         this.setState({appApiKey: process.env.REACT_APP_API_KEY});
+         this.setState({shop_URI: (await(await fetch('/api/user', {credentials: "same-origin"})).json()).shop_URI});
+         console.log(this.state);
+     }*/
 
     render() {
         return (

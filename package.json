@@ -10,7 +10,7 @@
     "build:server": "cd server && yarn build:server",
     "build:client:app": "cd server && yarn build:client:app",
     "build:client:index": "cd server && yarn build:client:index",
-    "ngrok": "ngrok.exe http 3000",
+    "ngrok": "./ngrok http 3000",
     "start": "cd server && yarn start",
     "start:server": "cd server && yarn start:server",
     "start:prod": "cd server && yarn start:prod",
@@ -30,7 +30,7 @@
     "Development"
   ],
   "engines": {
-    "node": "8.9.1"
+    "node": "8.9.x"
   },
   "dependencies": {}
 }
