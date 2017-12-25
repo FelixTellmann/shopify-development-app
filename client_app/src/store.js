@@ -18,7 +18,7 @@ const store = createStore(
     composeWithDevTools(
         applyMiddleware(
             thunk,
-            process.env.NODE_ENV !== 'production' ? logger : null,
+            logger
         )
     )
 );
