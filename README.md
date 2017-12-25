@@ -9,6 +9,19 @@ ngrok tunnel
 
 ![](header.png)
 
+## Goal & Technologies
+
+> The goal for the shopify-development-app is to combine server & client side javascript, utilitising the newest coding standards using babel-stage-0 and ES6/ES7.
+
+> Making Development available for offline production & online production utilizing:
+Heroku & mLab as well as Github for versioning
+
+> node.js as the server platform
+> express.js to handle all routing and api setup
+> MongoDB with mongoose for all data handling & model setup
+> Passport.JS to handle server side authorization & account integrations
+>
+
 ## Installation
 
 OS X, Linux & Windows:
