@@ -6,13 +6,15 @@ import shop from "./reducers/shopReducer";
 import user from "./reducers/userReducer";
 import app from "./reducers/appReducer";
 import error from "./reducers/errorReducer";
+import nav from "./reducers/navReducer";
 
 const store = createStore(
     combineReducers({
         error,
         app,
         user,
-        shop
+        shop,
+        nav
     }),
     {},
     composeWithDevTools(
