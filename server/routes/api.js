@@ -11,6 +11,13 @@ if (!development || !development_access_token || !development_shop_URI) {
     router.use('*', checkAuth);
 }
 
+/*================ TESTING RESTAURANT RESEARCH  ================*/
+
+
+
+
+/*================ TESTINE END ================*/
+
 router.get('/user', (req, res, next) => {
     if (development && development_access_token && development_shop_URI) {
         req.user = {};

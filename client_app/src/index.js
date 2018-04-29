@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
-import App from './containers/App';
+import App from './containers/app';
 import '@shopify/polaris/styles.css';
 import { BrowserRouter as Router } from "react-router-dom";
 import store from "./store";

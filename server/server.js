@@ -31,6 +31,11 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 /*================ Passport User Identification ================*/
 passport.serializeUser((user, done) => {
@@ -52,6 +57,8 @@ passport.deserializeUser((id, done) => {
 /*================ Public Rules - React.js Front-end ================*/
 app.use('/static', express.static(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI, '/client_index/build', '/static')));
 app.use('/app/static', express.static(path.join(__dirname, process.env.SHOPIFY_APP_RESOURCE_URI, '/client_app/build', '/static')));
+
+
 
 /*================ Private Rules - User Specific - Express.js Back-end - React.js Front-end ================*/
 app.use('/api', apiRoutes);

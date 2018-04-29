@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {Switch, Route, withRouter, Redirect} from "react-router-dom";
 import PropTypes from 'prop-types';
 
+
 import {fetchApp} from "../actions/appActions";
 import {fetchUser} from "../actions/userActions";
 import {fetchShop} from "../actions/shopActions";
@@ -113,7 +114,7 @@ const mapStateToProps = (state) => {
     };
 };
 
-/*const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         fetchApp: () => {
             dispatch(fetchApp())
@@ -125,6 +126,6 @@ const mapStateToProps = (state) => {
             dispatch(fetchUser())
         }
     }
-};*/
+};
 
 export default withRouter(connect(mapStateToProps, {fetchApp, fetchShop, fetchUser, changeTab} /*mapDispatchToProps*/)(App));
