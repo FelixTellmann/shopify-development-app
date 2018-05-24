@@ -14,6 +14,7 @@ import indexRoutes from './routes/index';
 import User from "./models/user";
 import Shop from "./models/shop";
 
+
 const app = express();
 mongoose.connect(process.env.PROD_DB);
 
